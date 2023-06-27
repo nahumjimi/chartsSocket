@@ -1,5 +1,9 @@
 const server = require('http').createServer()
 
+const express = require('express')
+const mongoose = require('mongoose');
+
+
 const io = require('socket.io')(server, {
   transports: ['websocket', 'polling']
 });
@@ -17,8 +21,6 @@ const data = [
   
 io.on("connection", client => {
   console.log("connected")
-
-  setInterval(() => {
       
     if(data.length > 5 ){
         data.shift()
@@ -28,7 +30,6 @@ io.on("connection", client => {
       console.log(data)
 
       client.emit("message", data)
-   }, 4000)
 
 })
 
